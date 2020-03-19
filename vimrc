@@ -11,10 +11,7 @@ set hlsearch
 "set smartindent
 filetype plugin indent on
 
-set background=dark
-colorscheme Tomorrow-Night
 " colorscheme nova
-
 autocmd Filetype php setlocal shiftwidth=4 tabstop=4
 
 let mapleader = ","
@@ -45,6 +42,7 @@ Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-vinegar'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
+Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'rking/ag.vim'
@@ -92,10 +90,6 @@ let NERDTreeHijackNetrw = 0
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#branch#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'molokai'
-" let g:airline_theme = 'minimalist'
 set laststatus=2
 
 set grepprg=ag
