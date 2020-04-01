@@ -5,14 +5,14 @@ set number
 set expandtab
 set shiftwidth=2
 set tabstop=2
-
+set backspace=indent,eol,start  " more powerful backspacing
 set hlsearch
 
-"set smartindent
 filetype plugin indent on
+highlight Comment cterm=bold
 
-" colorscheme nova
-autocmd Filetype php setlocal shiftwidth=4 tabstop=4
+colorscheme molokai
+let g:molokai_original = 1
 
 let mapleader = ","
 
@@ -41,9 +41,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-vinegar'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'chriskempson/base16-vim'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim'
@@ -88,8 +85,6 @@ nmap <Leader>t :NERDTreeToggle<cr>
 nmap <Leader>n :NERDTreeFind<cr>
 let NERDTreeHijackNetrw = 0
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
 set laststatus=2
 
 set grepprg=ag
