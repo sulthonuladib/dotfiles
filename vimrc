@@ -1,3 +1,7 @@
+" vi improved / vim configuration
+" created by Sulthonul Adib
+" github link: github.com/sulthonuladib
+
 set nocompatible
 " set t_Co=256
 syntax enable
@@ -7,8 +11,6 @@ set shiftwidth=2
 set tabstop=2
 set backspace=indent,eol,start  " more powerful backspacing
 set hlsearch
-
-
 
 let mapleader = ","
 

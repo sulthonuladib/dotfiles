@@ -1,3 +1,7 @@
+# zsh shell configuration
+# created by Sulthonul Adib
+# github link: github.com/sulthonuladib
+
 # export rbenv for manage ruby
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -12,6 +16,8 @@ alias python=python3
 alias pip=pip3
 
 # rmd to see markdown files
+# install it first on homebrew
+# then execute rmd <filename>
 rmd () {
   pandoc $1 | lynx -stdin
 }
