@@ -8,11 +8,7 @@ set tabstop=2
 set backspace=indent,eol,start  " more powerful backspacing
 set hlsearch
 
-filetype plugin indent on
-highlight Comment cterm=bold
 
-colorscheme molokai
-let g:molokai_original = 1
 
 let mapleader = ","
 
@@ -126,3 +122,4 @@ set splitbelow
 set splitright
 
 au FocusGained * call gitgutter#all()
+set laststatus=0
