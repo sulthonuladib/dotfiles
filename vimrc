@@ -11,6 +11,7 @@ set shiftwidth=2
 set tabstop=2
 set backspace=indent,eol,start  " more powerful backspacing
 set hlsearch
+set noswapfile
 
 let mapleader = ","
 
