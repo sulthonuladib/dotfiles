@@ -15,6 +15,12 @@ set noswapfile
 
 let mapleader = ","
 
+" set your color man!!
+colorscheme gruvbox
+set background=dark
+
+autocmd Filetype php setlocal shiftwidth=4 tabstop=4
+
 nmap <Leader>c :e $MYVIMRC<cr>
 
 nmap <Leader>f :bn<cr>
@@ -33,15 +39,12 @@ nmap <Leader>b :TagbarToggle<cr>
 
 nmap <Leader><Leader>nt :tabnext<cr>
 
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
 call plug#begin('~/.vim/plugged')
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-vinegar'
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'qpkorr/vim-bufkill'
@@ -52,15 +55,13 @@ Plug 'ervandew/supertab'
 Plug 'acoustichero/goldenrod.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'jiangmiao/auto-pairs'
-" Plugin 'majutsushi/tagbar'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'hwartig/vim-seeing-is-believing'
 Plug 'dikiaap/minimalist'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'mattn/emmet-vim'
-"colorscheme plugin
-" Plugin 'carakan/new-railscasts-theme'
+Plug 'morhetz/gruvbox'
 Plug 'tmhedberg/matchit'
 Plug 'hzchirs/vim-material'
 Plug 'joonty/vdebug'
@@ -76,15 +77,12 @@ Plug 'junegunn/goyo.vim'
 Plug 'miyakogi/seiya.vim'
 Plug 'sjl/vitality.vim'
 
-" call vundle#end()
 call plug#end()
 
 
 nmap <Leader>t :NERDTreeToggle<cr>
 nmap <Leader>n :NERDTreeFind<cr>
 let NERDTreeHijackNetrw = 0
-
-set laststatus=2
 
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
@@ -125,4 +123,3 @@ set splitbelow
 set splitright
 
 au FocusGained * call gitgutter#all()
-set laststatus=0
