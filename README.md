@@ -1,5 +1,6 @@
 # Cool macOS Configuration
 a very bad documentation & very-very bad english
+back to bash ! fucking slow zsh on Catalina
 ## 0. Initialization
 - Clone or download it first !!
 - ```
