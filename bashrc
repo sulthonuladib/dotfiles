@@ -1,5 +1,44 @@
+HOST_NAME=JunkMac
+
+#source ~/.nvm/nvm.sh
+#nvm use stable
+shopt -s autocd
+shopt -s histappend
+
+export PATH=$PATH:$HOME/bin
+
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+txtred='\e[0;31m' # Red
+txtgrn='\e[0;32m' # Green
+bldgrn='\e[1;32m' # Bold Green
+bldpur='\e[1;35m' # Bold Purple
+txtrst='\e[0m'    # Text Reset
+
+USERNAME=("sulthonuladib")
+
+print_before_the_prompt () {
+    dir=$PWD
+    home=$HOME
+    dir=${dir/"$HOME"/"~"}
+    printf "$txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
+}
+
+PROMPT_COMMAND=print_before_the_prompt
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+PS1="$USERNAME > "
+
+# fortune | cowsay -f tux
+
 # load rbenv
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
 
 # Some shit alias
 alias cppcom="g++ -std=c++17 -stdlib=libc++ ./**.cpp -o ../bin/Main.out; cd ../bin/ ./Main.out; cd ../src/"
@@ -8,8 +47,6 @@ alias my="mysql -u root -pBedokkok11,."
 alias bstart="brew services start"
 alias bstop="brew services stop"
 alias bser="brew services"
-alias python=python3
-alias pip=pip3
 alias gfxutil="~/hackintosh/utils/gfxutil"
 alias iasl="~/hackintosh/utils/iasl"
 
@@ -46,23 +83,4 @@ export POSTGRES_USER_LOCAL="sulthonuladib"
 export POSTGRES_HOST_LOCAL="localhost"
 export POSTGRES_PASSWORD_LOCAL="Bedokkok11,."
 
-# configuring ohmybash
-export OSH=/Users/sulthonuladib/.oh-my-bash
-OSH_THEME="pure"
 
-completions=(
-  git
-  composer
-  ssh
-)
-
-aliases=(
-  general
-)
-
-plugins=(
-  git
-  bashmarks
-)
-
-source $OSH/oh-my-bash.sh
