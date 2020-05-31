@@ -1,5 +1,4 @@
 # Cool macOS Configuration
-a very bad documentation & very-very bad english
 back to bash ! fucking slow zsh on Catalina
 ## 0. Initialization
 - Clone or download it first !!
@@ -8,7 +7,7 @@ back to bash ! fucking slow zsh on Catalina
   ```
 - Then enter its directory
 - ```
-  cd mac_dotfiles
+  cd dotfiles
   ```
 
 ## 1. Restore installed brew
@@ -17,6 +16,10 @@ back to bash ! fucking slow zsh on Catalina
     ```
 
 ## 2. Restore tmux configuration
+  - i added tmux powerline themes, so clone this repo to home dir first
+  - ```
+    git clone https://github.com/jimeh/tmux-themepack.git ~/.tmux-themepack
+    ```
   - Copy to default tmux configuration directory
   - ``` 
     cp ./tmux.conf ~/.tmux.conf
