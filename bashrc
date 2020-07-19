@@ -1,17 +1,8 @@
 HOST_NAME=JunkMac
 
-#source ~/.nvm/nvm.sh
-#nvm use stable
-shopt -s autocd
-shopt -s histappend
-
-export PATH=$PATH:$HOME/bin
 
 export HISTSIZE=5000
 export HISTFILESIZE=10000
-
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
@@ -47,8 +38,6 @@ alias my="mysql -u root -pBedokkok11,."
 alias bstart="brew services start"
 alias bstop="brew services stop"
 alias bser="brew services"
-alias gfxutil="~/hackintosh/utils/gfxutil"
-alias iasl="~/hackintosh/utils/iasl"
 
 # rmd to see markdown files
 # install lynx and pandoc first with homebrew
@@ -69,18 +58,8 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# alias android emulator
-alias qentang="/Users/sulthonuladib/Library/Android/sdk/emulator/emulator -avd Qentang"
-
 # GO PATH
-export GOPATH=$HOME/programming/go
+export GOPATH=$HOME/workspace/go
 
 # Composer global vendor
 export PATH=~/.composer/vendor/bin:$PATH
-
-# Postgres Environment Variable
-export POSTGRES_USER_LOCAL="sulthonuladib"
-export POSTGRES_HOST_LOCAL="localhost"
-export POSTGRES_PASSWORD_LOCAL="Bedokkok11,."
-
-
