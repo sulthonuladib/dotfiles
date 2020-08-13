@@ -52,6 +52,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'flazz/vim-colorschemes'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'wakatime/vim-wakatime'
+Plug 'chr4/nginx.vim'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'chemzqm/macdown.vim'
+Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
