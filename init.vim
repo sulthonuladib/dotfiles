@@ -48,6 +48,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
 Plug 'gruvbox-community/gruvbox'
 Plug 'scrooloose/nerdtree'
+Plug 'wakatime/vim-wakatime'
+Plug 'ervandew/supertab'
 
 "  I AM SO SORRY FOR DOING COLOR SCHEMES IN MY VIMRC, BUT I HAVE
 "  TOOOOOOOOOOOOO
@@ -57,6 +59,7 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'vim-airline/vim-airline'
 Plug 'flazz/vim-colorschemes'
+Plug 'dracula/vim'
 
 call plug#end()
 
@@ -93,6 +96,9 @@ endif
 let loaded_matchparen = 1
 let mapleader = " "
 imap jj <Esc>
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabCrMapping=1
+
 
 nmap <Leader>t :NERDTreeToggle<cr>
 nmap <Leader>n :NERDTreeFind<cr>
