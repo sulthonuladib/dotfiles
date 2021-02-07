@@ -17,9 +17,10 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-"set termguicolors
+set termguicolors
 set scrolloff=8
 set noshowmode
+set splitright
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -30,8 +31,6 @@ set updatetime=50
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 
@@ -44,29 +43,16 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-dispatch'
-Plug 'theprimeagen/vim-be-good', {'do': './install.sh'}
-Plug 'gruvbox-community/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'wakatime/vim-wakatime'
 Plug 'ervandew/supertab'
 
 
-
-Plug 'colepeters/spacemacs-theme.vim'
-Plug 'sainnhe/gruvbox-material'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'vim-airline/vim-airline'
-Plug 'flazz/vim-colorschemes'
-Plug 'dracula/vim'
+" Theming
+Plug 'ntk148v/vim-horizon'
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
-
-let g:gruvbox_contrast_dark = 'hard'
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-let g:gruvbox_invert_selection='0'
 
 " --- vim go (polyglot) settings.
 let g:go_highlight_build_constraints = 1
@@ -84,29 +70,35 @@ let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_auto_sameids = 1
 
-colorscheme gruvbox
-set background=dark
+
+" Modyfing horizon themes to match with term gui color
+silent! colorscheme horizon
+highlight Normal cterm=NONE gui=NONE ctermbg=233 ctermfg=252 guibg=NONE guifg=NONE
+highlight Pmenu cterm=NONE gui=NONE ctermbg=233 ctermfg=252 guifg=#ffffff guibg=#4f4f4f
+let g:lightline = {'colorscheme' : 'horizon'}
 
 if executable('rg')
     let g:rg_derive_root='true'
 endif
 
+" make browse fast
+let g:netrw_browse_split = 2
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+
+" FZF with CTRL+P styles
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+
+" Some mapping
 let loaded_matchparen = 1
 let mapleader = " "
 imap jj <Esc>
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabCrMapping=1
 
-
 nmap <Leader>t :NERDTreeToggle<cr>
 nmap <Leader>n :NERDTreeFind<cr>
-
-let g:netrw_browse_split = 2
-let g:netrw_banner = 0
-let g:netrw_winsize = 25
-
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
 
 nnoremap <leader>ghw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
@@ -127,15 +119,6 @@ nnoremap <Leader>rp :resize 100<CR>
 nnoremap <Leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-
-" vim TODO
-nmap <Leader>bu <Plug>BujoChecknormal
-nmap <Leader>bh <Plug>BujoAddnormal
-let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
-
-" Vim with me
-nnoremap <leader>vwm :colorscheme gruvbox<bar>:set background=dark<CR>
-nmap <leader>vtm :highlight Pmenu ctermbg=gray guibg=gray
 
 vnoremap X "_d
 
