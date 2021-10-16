@@ -50,7 +50,7 @@ Plug 'ervandew/supertab'
 
 " Theming
 Plug 'ntk148v/vim-horizon'
-Plug 'itchyny/lightline.vim'
+Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
 
