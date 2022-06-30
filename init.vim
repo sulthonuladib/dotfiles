@@ -5,8 +5,8 @@ set relativenumber
 set nohlsearch
 set hidden
 set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=2 softtabstop=2
+set shiftwidth=2
 set expandtab
 set smartindent
 set nu
@@ -21,6 +21,7 @@ set termguicolors
 set scrolloff=8
 set noshowmode
 set splitright
+set colorcolumn=100
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -28,14 +29,14 @@ set cmdheight=2
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=50
-
+"
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tweekmonster/gofmt.vim'
+" Plug 'tweekmonster/gofmt.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
@@ -44,38 +45,39 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'scrooloose/nerdtree'
-Plug 'wakatime/vim-wakatime'
 Plug 'ervandew/supertab'
-
+Plug 'github/copilot.vim'
+Plug 'rust-lang/rust.vim'
 
 " Theming
 Plug 'ntk148v/vim-horizon'
 Plug 'gruvbox-community/gruvbox'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 call plug#end()
 
 " --- vim go (polyglot) settings.
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_auto_sameids = 1
-
+"   let g:go_highlight_build_constraints = 1
+"   let g:go_highlight_extra_types = 1
+"   let g:go_highlight_fields = 1
+"   let g:go_highlight_functions = 1
+"   let g:go_highlight_methods = 1
+"   let g:go_highlight_operators = 1
+"   let g:go_highlight_structs = 1
+"   let g:go_highlight_types = 1
+"   let g:go_highlight_function_parameters = 1
+"   let g:go_highlight_function_calls = 1
+"   let g:go_highlight_generate_tags = 1
+"   let g:go_highlight_format_strings = 1
+"   let g:go_highlight_variable_declarations = 1
+"   let g:go_auto_sameids = 1
+"
 
 " Modyfing horizon themes to match with term gui color
-silent! colorscheme horizon
+colorscheme tokyonight
 highlight Normal cterm=NONE gui=NONE ctermbg=233 ctermfg=252 guibg=NONE guifg=NONE
 highlight Pmenu cterm=NONE gui=NONE ctermbg=233 ctermfg=252 guifg=#ffffff guibg=#4f4f4f
-let g:lightline = {'colorscheme' : 'horizon'}
+"let g:lightline = {'colorscheme' : 'horizon'}
 
 if executable('rg')
     let g:rg_derive_root='true'
@@ -135,7 +137,7 @@ nmap <leader>g[ <Plug>(coc-diagnostic-prev)
 nmap <leader>g] <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
-nnoremap <leader>cr :CocRestart
+nnoremap <leader>cr :CocRestart<CR>
 
 " Sweet Sweet FuGITive
 nmap <leader>gh :diffget //3<CR>
@@ -154,4 +156,3 @@ augroup highlight_yank
 augroup END
 
 autocmd BufWritePre * :call TrimWhitespace()
-
