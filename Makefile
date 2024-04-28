@@ -38,5 +38,9 @@ install/bin:
 		fi; \
 	done
 
+eval/ssh:
+	eval `ssh-agent -s`
+	ssh-add ~/.ssh/id_ed25519
+
 test/echo:
 	echo $(shell pwd)
