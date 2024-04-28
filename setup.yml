@@ -1,0 +1,20 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+    source_key: "./.ssh/id_ed25519"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
+    # personal: "{{ lookup('env', 'HOME') }}/personal/dotfiles"
+  #
+# pre_tasks:
+# - name: Update Apt
+#   become: true
+#   apt:
+#     force_apt_get: true
+#     update_cache: true
+#     state: present
+#   tags:
+#     - install
+#     - core
+#
+  tasks:
+    - include_tasks: tasks/ssh.yml

@@ -4,6 +4,9 @@ bootstrap0:
 	sudo apt-add-repository --yes --update ppa:ansible/ansible
 	sudo apt install -y ansible
 
+bootstrap:
+	ansible-playbook setup.yml --ask-become-pass --ask-vault-pass
+
 # install home dotfiles
 install/home:
 	cd ./HOME; \
@@ -23,4 +26,17 @@ install/xdg:
 		fi; \
 	done
 
+install/bin:
+	if [ ! -d ${HOME}/.local/bin ]; then \
+		mkdir -p ${HOME}/.local/bin; \
+	fi
+	cd ./bin; \
+	for i in *; do \
+		if [ -f $$i ]; then \
+			echo "Installing $$i"; \
+			ln -sf $(shell pwd)/bin/$$i ${HOME}/.local/bin/$$i; \
+		fi; \
+	done
+
 test/echo:
+	echo $(shell pwd)
