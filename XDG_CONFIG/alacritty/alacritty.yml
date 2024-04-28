@@ -1,5 +1,6 @@
 #font:
 #normal:
-family: FiraMono
+# family: FiraMono
+
 window:
   opacity: 0.9

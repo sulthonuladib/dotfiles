@@ -5,7 +5,6 @@
 
 # Global gitignore
 [core]
-	excludefile = /Users/sulthonuladib/.gitignore
 
 # Some alias to make eazier
 [alias]
