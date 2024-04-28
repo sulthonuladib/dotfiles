@@ -1,3 +1,0 @@
-[submodule "XDG_CONFIG/nvim"]
-	path = XDG_CONFIG/nvim
-	url = git@github.com:sulthonuladib/init.lua.git
