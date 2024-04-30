@@ -19,10 +19,10 @@ return {
         -- Snippets
         { 'L3MON4D3/LuaSnip' },             -- Required
         { 'rafamadriz/friendly-snippets' }, -- Optional
-        "folke/neodev.nvim",
+        -- "folke/neodev.nvim",
     },
     config = function()
-        require("neodev").setup({})
+        -- require("neodev").setup({})
         local lsp = require("lsp-zero")
 
         lsp.preset("recommended")
