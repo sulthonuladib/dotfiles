@@ -20,8 +20,9 @@ install/home:
 install/xdg:
 	cd ./XDG_CONFIG; \
 	for i in *; do \
-		if [ -f $$i ]; then \
+		if [ -d $$i ]; then \
 			echo "Installing $$i"; \
+			echo $(shell pwd)/XDG_CONFIG/$$i ${HOME}/.config/$$i; \
 			ln -sf $(shell pwd)/XDG_CONFIG/$$i ${HOME}/.config/$$i; \
 		fi; \
 	done
