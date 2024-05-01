@@ -1,6 +1,6 @@
 type TestProps = {
   name: string;
-  age: number;
+  age: numbe;
   city: string;
 };
 
