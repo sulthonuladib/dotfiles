@@ -1,0 +1,33 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "workspace.checkThirdParty": false,
+    "workspace.library": [
+        "$VIMRUNTIME",
+        "/home/$USER/.config/nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/LuaSnip/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/catppuccin/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/cmp-buffer/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/cmp-cmdline/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/cmp-nvim-lsp/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/cmp-path/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/cmp_luasnip/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/copilot.vim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/fidget.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/harpoon/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/lazy.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/lualine.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/mason-lspconfig.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/mason.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-cmp/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-lspconfig/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-notify/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-tree.lua/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-treesitter/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-web-devicons/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/plenary/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/plenary.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/presence.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-ui-select.nvim/lua"
+    ]
+}
