@@ -9,9 +9,7 @@ return {
     config = function()
         local telescope = require('telescope')
         local actions = require('telescope.actions')
-        local action_state = require "telescope.actions.state"
         local action_layout = require "telescope.actions.layout"
-        local putils = require "telescope.previewers.utils"
 
         telescope.setup({
             defaults = {
@@ -22,7 +20,7 @@ return {
 
                 -- path_display = "truncate",
 
-                winblend = 1,
+                -- winblend = 1,
 
                 layout_strategy = "vertical",
                 layout_config = {
@@ -30,7 +28,6 @@ return {
                     height = 0.85,
                     -- preview_cutoff = 120,
                     prompt_position = "bottom",
-
                     horizontal = {
                         preview_width = function(_, cols, _)
                             if cols > 200 then
@@ -150,7 +147,7 @@ return {
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
+        vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
         vim.keymap.set('n', '<leader>pws', function()
             local word = vim.fn.expand("<cword>")
             builtin.grep_string({ search = word })
@@ -159,7 +156,7 @@ return {
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
         end)
-        vim.keymap.set('n', '<leader>ps', function()
+        vim.keymap.set('n', '<leader>pg', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end)
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
