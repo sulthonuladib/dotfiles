@@ -37,7 +37,7 @@ return {
                 },
             },
         })
-        -- If you want icons for diagnostic errors, you'll need to define them somewhere:
+
         vim.fn.sign_define("DiagnosticSignError",
             { text = " ", texthl = "DiagnosticSignError" })
         vim.fn.sign_define("DiagnosticSignWarn",
@@ -52,7 +52,7 @@ return {
             popup_border_style = "rounded",
             enable_git_status = true,
             enable_diagnostics = true,
-            enable_normal_mode_for_inputs = false,                             -- Enable normal mode for input dialogs.
+            -- enable_normal_mode_for_inputs = false,                             -- Enable normal mode for input dialogs.
             open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
             sort_case_insensitive = false,                                     -- used when sorting files and directories in the tree
             sort_function = nil,                                               -- use a custom function for sorting files and directories in the tree
@@ -99,11 +99,12 @@ return {
                     use_git_status_colors = true,
                     highlight = "NeoTreeFileName",
                 },
+
                 git_status = {
                     symbols = {
                         -- Change type
-                        added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-                        modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+                        added     = "✔︎", -- or "✚", but this is redundant info if you use git_status_colors on the name
+                        modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
                         deleted   = "✖", -- this can only be used in the git_status source
                         renamed   = "󰁕", -- this can only be used in the git_status source
                         -- Status type
@@ -140,8 +141,8 @@ return {
             -- see `:h neo-tree-custom-commands-global`
             commands = {},
             window = {
-                position = "float",
-                width = 40,
+                position = "left",
+                width = 50,
                 mapping_options = {
                     noremap = true,
                     nowait = true,
@@ -320,5 +321,6 @@ return {
 
         -- vim.cmd([[nnoremap :Neotree reveal<cr>]])
         vim.keymap.set("n", "<leader>t", ":Neotree toggle<cr>")
+        vim.keymap.set("n", "<leader>gs", ":Neotree git_status<cr>")
     end
 }
