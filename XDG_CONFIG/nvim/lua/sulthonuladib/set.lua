@@ -1,35 +1,62 @@
-vim.opt.guicursor = ""
+local opt = vim.opt
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.showmode = false
+opt.guicursor = ""
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+opt.nu = true
+opt.relativenumber = true
+opt.showmode = false
+opt.showcmd = true
+opt.cmdheight = 1 -- Height of the command bar
 
-vim.opt.wrap = false
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.smartcase = true
 
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+opt.autoindent = true
+opt.cindent = true
+opt.breakindent = true
+opt.linebreak = true
+opt.modelines = 1
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+opt.wrap = false
 
-vim.opt.termguicolors = true
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.undofile = true
 
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+opt.hlsearch = false
+opt.incsearch = true
 
-vim.opt.updatetime = 50
-vim.opt.smoothscroll = true
+opt.termguicolors = true
 
-vim.opt.colorcolumn = "80"
+opt.scrolloff = 8
+opt.signcolumn = "yes"
+opt.isfname:append("@-@")
+
+opt.updatetime = 50
+opt.smoothscroll = true
+opt.cursorline = true
+
+opt.colorcolumn = "80"
+opt.inccommand = "split"
 
 -- lazy nvim-tree integration, disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
+local set_cursorline = function(event, value, pattern)
+    vim.api.nvim_create_autocmd(event, {
+        group = group,
+        pattern = pattern,
+        callback = function()
+            vim.opt_local.cursorline = value
+        end,
+    })
+end
+set_cursorline("WinLeave", false)
+set_cursorline("FileType", false, "TelescopePrompt")
+set_cursorline("WinEnter", true)
