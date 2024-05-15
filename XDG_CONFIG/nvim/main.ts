@@ -1,8 +1,9 @@
 type TestProps = {
   name: string;
-  age: numbe;
+  age: number;
   city: string;
 };
+
 
 export class Test {
   private data: Record<keyof TestProps, string>;

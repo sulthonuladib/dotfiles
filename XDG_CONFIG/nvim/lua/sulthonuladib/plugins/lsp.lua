@@ -11,11 +11,11 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
-        -- "folke/neodev.nvim",
+        "folke/neodev.nvim",
     },
 
     config = function()
-        -- require("neodev").setup({})
+        require("neodev").setup()
 
         local cmp_lsp = require("cmp_nvim_lsp")
         local capabilities = vim.tbl_deep_extend(
@@ -39,6 +39,7 @@ return {
                         capabilities = capabilities
                     }
                 end,
+
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
