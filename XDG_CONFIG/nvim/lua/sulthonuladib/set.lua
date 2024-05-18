@@ -31,7 +31,7 @@ opt.hlsearch = false
 opt.incsearch = true
 
 opt.list = true
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', eol = '↲' }
+-- opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', eol = '↲' }
 
 -- opt.termguicolors = true
 
