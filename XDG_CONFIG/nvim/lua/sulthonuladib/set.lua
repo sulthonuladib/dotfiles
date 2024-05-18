@@ -6,7 +6,7 @@ opt.nu = true
 opt.relativenumber = true
 opt.showmode = false
 opt.showcmd = true
-opt.cmdheight = 1 -- Height of the command bar
+-- opt.cmdheight = 1 -- Height of the command bar
 
 opt.tabstop = 4
 opt.softtabstop = 4
@@ -30,7 +30,10 @@ opt.undofile = true
 opt.hlsearch = false
 opt.incsearch = true
 
-opt.termguicolors = true
+opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', eol = '↲' }
+
+-- opt.termguicolors = true
 
 opt.scrolloff = 8
 opt.signcolumn = "yes"
@@ -57,6 +60,7 @@ local set_cursorline = function(event, value, pattern)
         end,
     })
 end
+
 set_cursorline("WinLeave", false)
 set_cursorline("FileType", false, "TelescopePrompt")
 set_cursorline("WinEnter", true)
