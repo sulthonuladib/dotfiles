@@ -60,40 +60,34 @@ return {
                     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
                 },
             })
-
-
             -- setup must be called before loading
-            vim.cmd.colorscheme "catppuccin"
+            -- vim.cmd.colorscheme "catppuccin"
         end
-    }
+    },
+	"folke/tokyonight.nvim",
+	lazy = false,
+	priority = 1000,
+	opts = {},
+	config = function()
+		local tokyonight = require("tokyonight")
+		tokyonight.setup({
+			style = "night",
+			-- light_style = "day",
+			transparent = true,
+			terminal_colors = true,
+			styles = {
+				comments = { italic = true },
+				keywords = { italic = true },
+				functions = {},
+				variables = {},
+				sidebars = "transparent",
+				floats = "transparent",
+			},
+			sidebars = { "qf", "help" },
+			day_brightness = 0.3,
+			hide_inactive_statusline = false,
+			dim_inactive = false,
+			lualine_bold = false,
+		})
+	end,
 }
-
---    return {
---        "folke/tokyonight.nvim",
---        lazy = false,
---        priority = 1000,
---        opts = {
---        },
---        config = function()
---            local tokyonight = require("tokyonight")
---            tokyonight.setup({
---                style = "storm",
---                -- light_style = "day",
---                transparent = true,
---                terminal_colors = true,
---                styles = {
---                    comments = { italic = true },
---                    keywords = { italic = true },
---                    functions = {},
---                    variables = {},
---                    sidebars = "transparent",
---                    floats = "transparent",
---                },
---                sidebars = { "qf", "help" },
---                day_brightness = 0.3,
---                hide_inactive_statusline = false,
---                dim_inactive = false,
---                lualine_bold = false,
---            })
---        end,
---    }

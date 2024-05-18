@@ -4,15 +4,13 @@ type TestProps = {
   city: string;
 };
 
-
 export class Test {
   private data: Record<keyof TestProps, string>;
 
-  add(name: string, value: string) {
+  add(nmame: string, value: string) {
     this.data[name] = value;
 
     return this;
-
   }
 
   build() {
@@ -23,19 +21,26 @@ export class Test {
 const test = new Test();
 const tests = new Array();
 
-
-function reateTest() {
-  test
-    .add('name', 'John')
-    .add('age', '25')
-    .add('city', 'New York'); tests.push(test.build());
-  test.add('name', 'Jane').add('age', '30').add('city', 'Los Angeles');
+function main() {
+  test.add("name", "John").add("age", "25").add("city", "New York");
+  tests.push(test.build());
+  test.add("name", "Jane").add("age", "30").add("city", "Los Angeles");
   test.build();
 }
 
-
-
-reateTest();
+main();
 console.log(tests);
 
+function thefunction(theparams: sometypes) {
+  return "ok";
+}
+
+function thefunction(theparams: any, test) {
+  return "ok";
+}
+
+
+function create(userId: string) {
+  return new User(userId);
+}
 
