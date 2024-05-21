@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
     "workspace.checkThirdParty": false,
     "workspace.library": [
-        "$VIMRUNTIME",
+        "$VIMRUNTIME/lua",
         "/home/$USER/.config/nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/telescope.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/LuaSnip/lua",
@@ -39,6 +39,7 @@
         "/home/sulthonuladib/.local/share/nvim/lazy/telescope-smart-history.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/conform.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/lspkind.nvim/lua",
-        "/home/sulthonuladib/.local/share/nvim/lazy/tokyonight.nvim/lua"
+        "/home/sulthonuladib/.local/share/nvim/lazy/tokyonight.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/oil.nvim/lua"
     ]
 }
