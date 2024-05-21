@@ -5,7 +5,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
-		{ "folke/neodev.nvim", opts = {} },
+		-- { "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -19,14 +19,20 @@ return {
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 				map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 				map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+				map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 				map("<leader>vd", vim.diagnostic.open_float, "Open [D]iagnostics")
-				map("<leader>[d", vim.diagnostic.goto_next, "Next [D]iagnostic")
-				map("<leader>]d", vim.diagnostic.goto_prev, "Previous [D]iagnostic")
+				map("<leader>]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
+				map("<leader>[d", vim.diagnostic.goto_prev, "Previous [D]iagnostic")
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				map("<leader>vca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+				-- vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+				map("<leader>ih", function()
+					local enabled = vim.lsp.inlay_hint.is_enabled({})
+					vim.lsp.inlay_hint.enable(not enabled)
+				end, "[I]nlay [H]int")
+
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
@@ -60,24 +66,78 @@ return {
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local servers = {
-			gopls = {},
-			-- pyright = {},
-			rust_analyzer = {},
-			tsserver = {},
-			--
-
-			lua_ls = {
+			gopls = {
 				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
+					gopls = {
+						analyses = {
+							unusedparams = true,
 						},
-						diagnostics = {
-							globals = { "vim" },
+						staticcheck = true,
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
 						},
 					},
 				},
 			},
+			-- pyright = {},
+			rust_analyzer = {},
+			-- LANG: Typescript and Javascript with tsserver
+			tsserver = {
+				settings = {
+					javascript = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = false,
+						},
+					},
+
+					typescript = {
+						inlayHints = {
+							includeInlayEnumMemberValueHints = true,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayFunctionParameterTypeHints = true,
+							includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+							includeInlayPropertyDeclarationTypeHints = true,
+							includeInlayVariableTypeHints = false,
+						},
+					},
+				},
+			},
+			-- LANG: Lua with lua_ls
+			-- lua_ls = {
+			-- 	settings = {
+			-- 		Lua = {
+			--                      runtime = {
+			--                          version = "LuaJIT",
+			--                          path = vim.split(package.path, ";"),
+			--                      },
+			-- 			completion = {
+			-- 				callSnippet = "Replace",
+			-- 			},
+			-- 			diagnostics = {
+			-- 				globals = { "vim" },
+			-- 			},
+			--                      workspace = {
+			--                          library = {
+			--                              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+			--                              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+			--                          },
+			--                      },
+			-- 		},
+			-- 	},
+			-- },
 		}
 		require("mason").setup()
 
