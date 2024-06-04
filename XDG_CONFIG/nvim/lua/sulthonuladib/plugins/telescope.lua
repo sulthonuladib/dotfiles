@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.5",
+	-- tag = "0.1.7",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
@@ -80,7 +80,7 @@ return {
 
 						-- ["<M-m>"] = actions.master_stack,
 
-						-- ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+						["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
 						-- ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 
 						-- This is nicer when used with smart-history plugin.

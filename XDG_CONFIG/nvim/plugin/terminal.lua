@@ -27,3 +27,8 @@ vim.keymap.set("n", "<leader>vt", function()
     vim.cmd("rightbelow vnew")
     vim.cmd.term()
 end)
+
+vim.keymap.set("n", "<leader>tt", function()
+  vim.cmd "tabnew"
+  vim.cmd "term"
+end)

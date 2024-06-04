@@ -40,6 +40,10 @@
         "/home/sulthonuladib/.local/share/nvim/lazy/conform.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/lspkind.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/tokyonight.nvim/lua",
-        "/home/sulthonuladib/.local/share/nvim/lazy/oil.nvim/lua"
+        "/home/sulthonuladib/.local/share/nvim/lazy/oil.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/copilot-cmp/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/copilot-cmp.git.cloning/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/copilot.lua/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-fzf-native.nvim/lua"
     ]
 }

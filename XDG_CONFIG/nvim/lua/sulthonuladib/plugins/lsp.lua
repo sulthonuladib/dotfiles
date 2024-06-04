@@ -88,33 +88,41 @@ return {
 			-- pyright = {},
 			rust_analyzer = {},
 			-- LANG: Typescript and Javascript with tsserver
-			tsserver = {
+			-- tsserver = {
+			-- 	settings = {
+			-- 		javascript = {
+			-- 			inlayHints = {
+			-- 				includeInlayEnumMemberValueHints = true,
+			-- 				includeInlayFunctionLikeReturnTypeHints = true,
+			-- 				includeInlayFunctionParameterTypeHints = true,
+			-- 				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+			-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+			-- 				includeInlayPropertyDeclarationTypeHints = true,
+			-- 				includeInlayVariableTypeHints = false,
+			-- 			},
+			-- 		},
+			--
+			-- 		typescript = {
+			-- 			inlayHints = {
+			-- 				includeInlayEnumMemberValueHints = true,
+			-- 				includeInlayFunctionLikeReturnTypeHints = true,
+			-- 				includeInlayFunctionParameterTypeHints = true,
+			-- 				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+			-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+			-- 				includeInlayPropertyDeclarationTypeHints = true,
+			-- 				includeInlayVariableTypeHints = false,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
+			bufls = {
 				settings = {
-					javascript = {
-						inlayHints = {
-							includeInlayEnumMemberValueHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayVariableTypeHints = false,
-						},
-					},
-
-					typescript = {
-						inlayHints = {
-							includeInlayEnumMemberValueHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayVariableTypeHints = false,
-						},
+					bufls = {
+						diagnostics = {},
 					},
 				},
 			},
+
 			-- LANG: Lua with lua_ls
 			-- lua_ls = {
 			-- 	settings = {
@@ -139,6 +147,7 @@ return {
 			-- 	},
 			-- },
 		}
+
 		require("mason").setup()
 
 		local ensure_installed = vim.tbl_keys(servers or {})

@@ -46,6 +46,14 @@ opt.cursorline = true
 opt.colorcolumn = "80"
 opt.inccommand = "split"
 
+-- nvim title
+vim.o.title = true
+-- vim.o.titlestring = "{'%:p:h'}"
+vim.opt.titlestring = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " - nvim"
+
+-- disable vim mark
+vim.opt.viminfo:remove('m')
+
 -- lazy nvim-tree integration, disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
