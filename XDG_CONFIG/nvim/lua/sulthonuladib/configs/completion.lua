@@ -8,8 +8,9 @@ local cmp = require("cmp")
 
 cmp.setup({
 	sources = {
+		-- { name = "copilot" },
 		{ name = "nvim_lsp" },
-        { name = "luasnip" },
+		{ name = "luasnip" },
 		{ name = "path" },
 		{ name = "buffer" },
 	},
@@ -24,6 +25,13 @@ cmp.setup({
 			}),
 			{ "i", "c" }
 		),
+		["<C-k>"] = cmp.mapping(
+			cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Insert,
+				select = true,
+			}),
+			{ "i", "c" }
+		),
 	},
 
 	-- Enable luasnip to handle snippet expansion for nvim-cmp
@@ -32,15 +40,24 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
-})
 
--- Setup up vim-dadbod
--- cmp.setup.filetype({ "sql" }, {
--- 	sources = {
--- 		{ name = "vim-dadbod-completion" },
--- 		{ name = "buffer" },
--- 	},
--- })
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "text", -- show only symbol annotations
+			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+			-- can also be a function to dynamically calculate max width such as
+			-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+			show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+
+			-- The function below will be called before any actual modifications from lspkind
+			-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+			before = function(_, vim_item)
+				return vim_item
+			end,
+		}),
+	},
+})
 
 local ls = require("luasnip")
 
@@ -48,11 +65,6 @@ ls.config.set_config({
 	history = false,
 	updateevents = "TextChanged,TextChangedI",
 })
-
--- Load custom snippets
--- for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
--- 	loadfile(ft_path)()
--- end
 
 vim.keymap.set({ "i", "s" }, "<c-l>", function()
 	if ls.expand_or_jumpable() then
