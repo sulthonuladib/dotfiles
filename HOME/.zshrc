@@ -22,6 +22,9 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+/usr/bin/keychain --nogui ~/.ssh/id_ed25519
+source $HOME/.keychain/$HOST-sh
+
 bindkey -s ^f "tmux-sessionizer\n"
 alias ta="tmux attach"
 
