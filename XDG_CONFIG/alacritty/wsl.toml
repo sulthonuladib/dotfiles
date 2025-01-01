@@ -1,0 +1,112 @@
+[general]
+import = ["~/AppData/Roaming/alacritty/themes/rose-pine-moon.toml"]
+
+[terminal]
+[terminal.shell]
+program = 'wsl.exe ~'
+
+[font]
+size = 14.0
+
+[font.normal]
+family = "Berkeley Mono"
+style = "Regular"
+
+# [[keyboard.bindings]]
+# action = "Paste"
+# key = "V"
+# mods = "Alt"
+#
+# [[keyboard.bindings]]
+# action = "Copy"
+# key = "C"
+# mods = "Alt"
+
+[window]
+startup_mode = "Maximized"
+decorations = "none"
+
+
+
+# [colors.primary]
+# foreground = "$text"
+# background = "$base"
+# dim_foreground = "$subtle"
+# bright_foreground = "$text"
+#
+# [colors.cursor]
+#
+# text = "$text"
+# cursor = "$highlightHigh"
+#
+# [colors.vi_mode_cursor]
+# text = "$text"
+# cursor = "$highlightHigh"
+#
+# [colors.search.matches]
+# foreground = "$subtle"
+#
+# background = "$overlay"
+#
+#
+# [colors.search.focused_match]
+# foreground = "$base"
+# background = "$rose"
+#
+#
+# [colors.hints.start]
+# foreground = "$subtle"
+# background = "$surface"
+#
+#
+# [colors.hints.end]
+#
+# foreground = "$muted"
+# background = "$surface"
+#
+#
+# [colors.line_indicator]
+# foreground = "None"
+# background = "None"
+#
+#
+# [colors.footer_bar]
+# foreground = "$text"
+# background = "$surface"
+#
+# [colors.selection]
+# text = "$text"
+# background = "$highlightMed"
+#
+#
+# [colors.normal]
+# black = "$overlay"
+# red = "$love"
+#
+# green = "$pine"
+# yellow = "$gold"
+# blue = "$foam"
+# magenta = "$iris"
+# cyan = "$rose"
+# white = "$text"
+#
+# [colors.bright]
+# black = "$muted"
+# red = "$love"
+# green = "$pine"
+# yellow = "$gold"
+#
+# blue = "$foam"
+# magenta = "$iris"
+# cyan = "$rose"
+# white = "$text"
+#
+# [colors.dim]
+# black = "$muted"
+# red = "$love"
+# green = "$pine"
+# yellow = "$gold"
+# blue = "$foam"
+# magenta = "$iris"
+# cyan = "$rose"
+# white = "$text"
