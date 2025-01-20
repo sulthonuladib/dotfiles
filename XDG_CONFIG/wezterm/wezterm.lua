@@ -1,13 +1,13 @@
 local wezterm = require("wezterm")
 local action = wezterm.action
 
+-- local theme = wezterm.plugin.require("https://github.com/neapsix/wezterm").main
+
 local config = {}
 
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
-
-config.font = wezterm.font("JetBrains Mono")
 
 config.enable_scroll_bar = false
 config.window_padding = {
@@ -17,16 +17,30 @@ config.window_padding = {
 	bottom = 0,
 }
 
+-- config.window_background_opacity = 0.95
+
+config.max_fps = 165;
 config.tab_bar_at_bottom = true
+-- config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
-config.use_fancy_tab_bar = false
-config.tab_max_width = 64
 -- config.enable_tab_bar = false
-config.window_decorations = "NONE"
+-- config.window_decorations = "RESIZE"
+config.tab_max_width = 64
 
--- config.color_scheme = "Tokyo Night"
 config.color_scheme = "Tomorrow Night Eighties"
+-- config.colors = theme.colors()
+-- config.window_frame = theme.window_frame({})
+-- config.window_frame.font = wezterm.font({
+-- 	family = "Berkeley Mono",
+-- 	weight = "Bold",
+-- })
+-- config.window_frame.font_size = 11
 
+config.font = wezterm.font({
+	family = "Berkeley Mono",
+	weight = "Regular",
+})
 config.warn_about_missing_glyphs = false
 
 config.keys = {}
@@ -47,5 +61,17 @@ for i = 1, 8 do
 		action = action.ActivateTab(i - 1),
 	})
 end
+
+-- config.wsl_domains = {
+-- 	{
+-- 		name = "WSL:Ubuntu-24.04",
+-- 		distribution = "Ubuntu-24.04",
+-- 		default_cwd = "/home/sulthonuladib",
+-- 		default_prog = { "zsh" },
+-- 	},
+-- }
+--
+config.default_domain = "WSL:Ubuntu-24.04"
+-- config.default_prog = { 'powershell.exe' }
 
 return config
