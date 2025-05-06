@@ -7,21 +7,28 @@ export LESS='-R --mouse --wheel-lines=5'
 . "$HOME/.cargo/env"
 
 ## Yes a lot of Yavascript
-# NVM for Node
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# fnm for Node
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$HOME/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
 # Bun Stuff
 [ -s "/home/sulthonuladib/.bun/_bun" ] && source "/home/sulthonuladib/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
 # Deno
-. "/home/sulthonuladib/.deno/env"
+# . "/home/sulthonuladib/.deno/env"
 
 
 # Go Bin and Go Bin Bin (lol)
-export PATH="/usr/local/go/bin:$PATH"
+export PATH="$HOME/local/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+
+#zig
+export PATH="$HOME/.local/share/zig:$PATH"
 
 # local bin
 export PATH="$HOME/bin:$PATH"
