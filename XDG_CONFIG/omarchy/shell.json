@@ -1,0 +1,80 @@
+{
+  "bar": {
+    "centerAnchor": "omarchy.clock",
+    "layout": {
+      "center": [
+        {
+          "id": "omarchy.indicators"
+        },
+        {
+          "format": "dddd dd/MM/yyyy HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
+          "verticalFormat": "HH\n—\nmm"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
+      "left": [
+        {
+          "id": "omarchy.menu"
+        },
+        {
+          "id": "tornikegomareli.spaces",
+          "activeStyle": "accent",
+          "density": "compact",
+          "dimUnfocused": true,
+          "iconSize": 12,
+          "iconStyle": "color",
+          "labelStyle": "number",
+          "maxIcons": 9,
+          "persistentWorkspaces": 9,
+          "settingsButton": "hover",
+          "showApps": "hover",
+          "hideEmpty": true,
+          "tooltips": false,
+          "previews": false,
+          "showIcons": true
+        }
+      ],
+      "right": [
+        {
+          "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.agents"
+        },
+        {
+          "id": "omarchy.bluetooth"
+        },
+        {
+          "id": "omarchy.network"
+        },
+        {
+          "id": "omarchy.audio"
+        },
+        {
+          "id": "omarchy.monitor"
+        },
+        {
+          "id": "omarchy.power"
+        }
+      ]
+    },
+    "position": "top",
+    "transparent": true
+  },
+  "idle": {
+    "lock": 1200,
+    "screensaver": 60
+  },
+  "plugins": [],
+  "version": 1
+}

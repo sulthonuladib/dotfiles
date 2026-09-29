@@ -1,0 +1,275 @@
+#!/usr/bin/env python3
+"""
+vmrss-workers - worker-thread resource usage for a Bun process tree.
+
+Bun's `new Worker()` spawns *threads* (like Node's worker_threads), not OS
+processes, so `vmrss` reports one big number for the whole server and no
+separate worker lines. This walks the process tree the same way `vmrss` does,
+then breaks each process out into its worker threads and reports the metrics
+Linux actually tracks per thread:
+
+  * CPU (utime+stime delta over a sample window)
+  * scheduler state
+  * voluntary context switches
+
+RSS/PSS are per-process on Linux: every thread shares one address space, so
+they are printed once per process and never split per thread. If the parent is
+a `bun run` launcher, its worker threads live in a child process in the tree,
+which is why this walks descendants too.
+
+Usage:
+  vmrss-workers <pid> [-w] [-i SECONDS] [-a] [-n NAME]
+
+  -w, --watch      refresh continuously (or set WORKERS_MONITOR=1)
+  -i, --interval   sample/refresh window in seconds (default 0.5)
+  -a, --all        show every thread, not just worker threads
+  -n, --name       thread name to treat as a worker (default: Worker)
+
+Examples:
+  vmrss-workers 82758            # launcher pid: finds the server in the tree
+  vmrss-workers 82759 -w         # watch the server's worker threads
+  vmrss-workers 82759 -a -i 1    # every thread, one-second window
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+import time
+
+CLK_TCK = os.sysconf("SC_CLK_TCK")
+
+
+def read_text(path: str) -> str:
+    with open(path, "r", errors="replace") as handle:
+        return handle.read()
+
+
+def parse_stat(data: str):
+    """Split a /proc stat line around its parenthesised comm field."""
+    right = data.rfind(")")
+    left = data.find("(")
+    if right < 0 or left < 0:
+        raise OSError("malformed stat")
+    comm = data[left + 1:right]
+    fields = data[right + 2:].split()
+    return comm, fields
+
+
+def process_stat(pid: int):
+    comm, fields = parse_stat(read_text(f"/proc/{pid}/stat"))
+    return comm, fields[0], int(fields[1])
+
+
+def thread_stat(pid: int, tid: int):
+    comm, fields = parse_stat(read_text(f"/proc/{pid}/task/{tid}/stat"))
+    utime = int(fields[11]) / CLK_TCK
+    stime = int(fields[12]) / CLK_TCK
+    return comm, fields[0], utime, stime
+
+
+def thread_run_ns(pid: int, tid: int):
+    """Cumulative nanoseconds on CPU, when the kernel tracks schedstats."""
+    try:
+        return int(read_text(f"/proc/{pid}/task/{tid}/schedstat").split()[0])
+    except (OSError, IndexError, ValueError):
+        return None
+
+
+def rss_mb(pid: int):
+    try:
+        for line in read_text(f"/proc/{pid}/status").splitlines():
+            if line.startswith("VmRSS:"):
+                return float(line.split()[1]) / 1024.0
+    except OSError:
+        pass
+    return 0.0
+
+
+def pss_mb(pid: int):
+    try:
+        for line in read_text(f"/proc/{pid}/smaps_rollup").splitlines():
+            if line.startswith("Pss:"):
+                return float(line.split()[1]) / 1024.0
+    except OSError:
+        pass
+    return None
+
+
+def voluntary_ctxt(pid: int, tid: int):
+    try:
+        for line in read_text(f"/proc/{pid}/task/{tid}/status").splitlines():
+            if line.startswith("voluntary_ctxt_switches:"):
+                return int(line.split()[1])
+    except OSError:
+        pass
+    return None
+
+
+def children_of(pid: int):
+    children = []
+    try:
+        entries = os.listdir("/proc")
+    except OSError:
+        return children
+    for entry in entries:
+        if not entry.isdigit():
+            continue
+        child = int(entry)
+        try:
+            _, _, ppid = process_stat(child)
+        except OSError:
+            continue
+        if ppid == pid:
+            children.append(child)
+    return children
+
+
+def process_tree(root: int):
+    """Depth-first (pid, depth) list of the tree, cycle-safe."""
+    seen = set()
+    order = []
+    stack = [(root, 0)]
+    while stack:
+        pid, depth = stack.pop()
+        if pid in seen:
+            continue
+        seen.add(pid)
+        order.append((pid, depth))
+        for child in reversed(children_of(pid)):
+            stack.append((child, depth + 1))
+    return order
+
+
+def thread_snapshot(pids):
+    snapshot = {}
+    for pid in pids:
+        try:
+            tids = os.listdir(f"/proc/{pid}/task")
+        except OSError:
+            continue
+        for tid_text in tids:
+            tid = int(tid_text)
+            try:
+                comm, state, utime, stime = thread_stat(pid, tid)
+            except OSError:
+                continue
+            snapshot[(pid, tid)] = (comm, state, utime, stime, thread_run_ns(pid, tid))
+    return snapshot
+
+
+def report(root: int, interval: float, show_all: bool, worker_name: str) -> None:
+    tree = process_tree(root)
+    depths = {pid: depth for pid, depth in tree}
+    pids = list(depths)
+
+    before = thread_snapshot([pid for pid in pids if os.path.exists(f"/proc/{pid}")])
+    time.sleep(interval)
+    after = thread_snapshot([pid for pid in pids if os.path.exists(f"/proc/{pid}")])
+
+    total_rss = 0.0
+    total_workers = 0
+    total_cpu = 0.0
+
+    for pid in sorted(pids, key=lambda value: (depths[value], value)):
+        if not os.path.exists(f"/proc/{pid}"):
+            continue
+        try:
+            comm, _, _ = process_stat(pid)
+        except OSError:
+            continue
+
+        indent = "  " * depths[pid]
+        rss = rss_mb(pid)
+        pss = pss_mb(pid)
+        threads = [(tid, info) for (p, tid), info in after.items() if p == pid]
+        total_rss += rss
+
+        pss_part = f", {pss:.1f} MB PSS" if pss is not None else ""
+        print(f"{indent}{comm}({pid}): {rss:.1f} MB RSS{pss_part}, {len(threads)} threads")
+
+        rows = []
+        for tid, (comm_t, state, utime, stime, run_ns) in threads:
+            if not show_all and comm_t != worker_name:
+                continue
+            previous = before.get((pid, tid))
+            cpu = 0.0
+            if previous is not None:
+                prev_run_ns = previous[4]
+                if run_ns is not None and prev_run_ns is not None and run_ns >= prev_run_ns:
+                    # schedstat run_time is nanoseconds; prefer it for a finer
+                    # reading than the 1/HZ jiffy counters.
+                    cpu = (run_ns - prev_run_ns) / (interval * 1_000_000_000.0) * 100.0
+                else:
+                    delta = (utime - previous[2]) + (stime - previous[3])
+                    cpu = delta / interval * 100.0
+            rows.append((max(cpu, 0.0), tid, comm_t, state, utime, stime))
+
+        rows.sort(key=lambda row: row[0], reverse=True)
+
+        for cpu, tid, comm_t, state, utime, stime in rows:
+            ctxt = voluntary_ctxt(pid, tid)
+            ctxt_part = f"  vctxt {ctxt}" if ctxt is not None else ""
+            print(
+                f"{indent}  {comm_t:<12} tid {tid:<8} "
+                f"cpu {cpu:6.2f}%  utime {utime:8.2f}s stime {stime:7.2f}s  "
+                f"state {state}{ctxt_part}"
+            )
+            total_workers += 1
+            total_cpu += cpu
+
+        if rows:
+            worker_cpu = sum(row[0] for row in rows)
+            print(f"{indent}  workers: {len(rows)}, cpu {worker_cpu:.2f}%")
+
+    print(
+        f"Total RSS: {total_rss:.1f} MB   "
+        f"Worker threads: {total_workers}   Worker CPU: {total_cpu:.2f}%"
+    )
+
+
+def alive(pid: int) -> bool:
+    return os.path.exists(f"/proc/{pid}")
+
+
+def main(argv) -> int:
+    parser = argparse.ArgumentParser(
+        prog="vmrss-workers",
+        description="Worker-thread usage under a PID (Bun workers are threads).",
+    )
+    parser.add_argument("pid", type=int, help="parent process id")
+    parser.add_argument("-w", "--watch", action="store_true", help="refresh continuously")
+    parser.add_argument("-i", "--interval", type=float, default=0.5, help="sample/refresh window in seconds")
+    parser.add_argument("-a", "--all", action="store_true", help="show all threads, not just workers")
+    parser.add_argument("-n", "--name", default="Worker", help="worker thread name (default: Worker)")
+    args = parser.parse_args(argv)
+
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+    except (AttributeError, OSError):
+        pass
+
+    if not alive(args.pid):
+        print(f"vmrss-workers: no such process: {args.pid}", file=sys.stderr)
+        return 1
+
+    watch = args.watch or bool(os.environ.get("WORKERS_MONITOR"))
+
+    try:
+        if not watch:
+            report(args.pid, args.interval, args.all, args.name)
+            return 0
+
+        while alive(args.pid):
+            print(f"--- {time.strftime('%H:%M:%S')} pid {args.pid} ---")
+            report(args.pid, args.interval, args.all, args.name)
+            time.sleep(args.interval)
+    except KeyboardInterrupt:
+        return 0
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

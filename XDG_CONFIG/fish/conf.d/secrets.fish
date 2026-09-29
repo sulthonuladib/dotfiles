@@ -1,0 +1,4 @@
+set -gx OPENCODE_SERVER_PASSWORD "hjkl"
+# set -gx TOKEN_HARBOR_API_KEY "thk_live_YdoScYLxVbotOFONidgv47uwGoYQEmdubWYqe0HIIniwqCvFyexMtGn7TLh27MTv"
+set -gx COINGECKO_API_KEY "CG-V7StQ2W3n9yibtS1SJAZ9oqz"
+
