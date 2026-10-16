@@ -1,0 +1,5 @@
+-- local servers = {
+-- 	lua_ls = require("sulthonuladib.plugins.lsp.lua_ls"),
+-- 	tsc = require("sulthonuladib.plugins.lsp.tsc"),
+-- 	stylua = require("sulthonuladib.plugins.lsp.stylua"),
+-- }
