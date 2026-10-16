@@ -27,21 +27,7 @@
           "id": "omarchy.menu"
         },
         {
-          "id": "tornikegomareli.spaces",
-          "activeStyle": "accent",
-          "density": "compact",
-          "dimUnfocused": true,
-          "iconSize": 12,
-          "iconStyle": "color",
-          "labelStyle": "number",
-          "maxIcons": 9,
-          "persistentWorkspaces": 9,
-          "settingsButton": "hover",
-          "showApps": "hover",
-          "hideEmpty": true,
-          "tooltips": false,
-          "previews": false,
-          "showIcons": true
+          "id": "omarchy.workspaces"
         }
       ],
       "right": [
