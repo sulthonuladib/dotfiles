@@ -15,7 +15,16 @@ require("telescope").setup({
 			},
 		},
 	},
-	-- pickers = {}
+	pickers = {
+		find_files = {
+			-- `rg` respects .gitignore by default, so --hidden shows dotfiles
+			-- without showing gitignored files. Exclude .git/ itself explicitly.
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+		},
+		live_grep = {
+			additional_args = { "--hidden", "--glob", "!**/.git/*" },
+		},
+	},
 	extensions = {
 		["ui-select"] = { require("telescope.themes").get_dropdown() },
 	},
