@@ -19,10 +19,34 @@ require("telescope").setup({
 		find_files = {
 			-- `rg` respects .gitignore by default, so --hidden shows dotfiles
 			-- without showing gitignored files. Exclude .git/ itself explicitly.
-			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+			-- Later globs win. The leading '*' whitelist is required: without it,
+			-- the non-negated config.toml glob would whitelist ONLY that file.
+			find_command = {
+				"rg",
+				"--files",
+				"--hidden",
+				"--glob",
+				"*",
+				"--glob",
+				"!**/.git/*",
+				"--glob",
+				"!**/herdr/**",
+				"--glob",
+				"**/herdr/config.toml",
+			},
 		},
 		live_grep = {
-			additional_args = { "--hidden", "--glob", "!**/.git/*" },
+			additional_args = {
+				"--hidden",
+				"--glob",
+				"*",
+				"--glob",
+				"!**/.git/*",
+				"--glob",
+				"!**/herdr/**",
+				"--glob",
+				"**/herdr/config.toml",
+			},
 		},
 	},
 	extensions = {
