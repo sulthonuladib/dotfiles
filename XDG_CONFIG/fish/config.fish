@@ -18,7 +18,6 @@ set -g fish_greeting
 
 direnv hook fish | source
 
-
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
@@ -32,7 +31,3 @@ if not string match -q -- "$PNPM_HOME/bin" $PATH
   set -gx PATH "$PNPM_HOME/bin" $PATH
 end
 # pnpm end
-
-
-# Added by Antigravity CLI installer
-set -gx PATH "/home/sulthonuladib/.local/bin" $PATH
