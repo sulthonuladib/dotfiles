@@ -8,6 +8,10 @@ set -gx BROWSER omarchy-launch-browser
 set -gx BAT_THEME ansi
 set -gx MANROFFOPT "-c"
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+# git's pager is delta, which defaults LESS to -RFX when unset. -X has no alt
+# screen, so tmux treats the mouse wheel as history scroll. --mouse makes less
+# handle the wheel itself (works in tmux), -FX keeps short diffs in scrollback.
+set -gx LESS "-RFX --mouse"
 
 # Tool integrations (mirrors /usr/share/omarchy/default/bash/init)
 if command -q mise

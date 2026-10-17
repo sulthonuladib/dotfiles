@@ -44,6 +44,8 @@
 
 [core]
 	; pager = less -FRX --mouse  # -X keeps output in scrollback; --mouse enables wheel scrolling
+    # delta pages through less; LESS is set to "-RFX --mouse" in fish config.fish
+    # so the wheel keeps scrolling diffs under tmux.
     pager = delta
 
 [interactive]
