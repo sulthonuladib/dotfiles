@@ -5,9 +5,19 @@
 # Validate: herdr config check
 # Apply to running server: herdr server reload-config
 #
-# Keymap: full tmux default port (prefix = backtick, matching personal tmux.conf),
+# Keymap: tmux default port (prefix = backtick, matching personal tmux.conf),
 # plus vim-style workspace/agent nav. Hierarchy map: workspace ≈ tmux session,
 # tab ≈ tmux window, pane ≈ tmux pane.
+#
+# IMPORTANT: switch_workspace owns prefix+shift+1..9, and shift+digit IS the
+# shifted punctuation key (! @ # $ % ^ & * ( )). herdr's config check does not
+# flag this, so the tmux bindings that normally live on shifted digits were
+# moved to avoid being shadowed:
+#   tmux $ rename-session  → rename_workspace = prefix+shift+w (herdr default)
+#   tmux % split-window -h → split_horizontal  = prefix+minus  (herdr default)
+#   tmux & kill-window     → close_tab        = prefix+shift+x (herdr default)
+#   tmux ! break-pane      → command on prefix+shift+b
+#   tmux ( ) session cycle → dropped (redundant with shift+h/l)
 
 onboarding = false
 
@@ -28,21 +38,21 @@ help = "prefix+?"     # tmux ?   list-keys
 detach = "prefix+d"   # tmux d   detach-client
 
 # --- workspaces (tmux sessions) ---
-rename_workspace = "prefix+$"        # tmux $ rename-session
+rename_workspace = "prefix+shift+w"  # herdr default (tmux $ shadowed, see header)
 workspace_picker = "prefix+s"        # tmux s choose-tree -s
-previous_workspace = "prefix+shift+h" # vim-style; tmux ( is a command binding below
-next_workspace = "prefix+shift+l"     # vim-style; tmux ) is a command binding below
-switch_workspace = "prefix+ctrl+1..9"
+previous_workspace = "prefix+shift+h" # vim-style
+next_workspace = "prefix+shift+l"     # vim-style
+switch_workspace = "prefix+shift+1..9" # herdr docs recommendation; see header note
 new_workspace = "prefix+shift+n"     # no tmux default
 close_workspace = "prefix+shift+d"   # no tmux default; guarded by ui.confirm_close
 
 # --- tabs (tmux windows) ---
 new_tab = "prefix+c"                 # tmux c new-window
 rename_tab = "prefix+,"              # tmux , rename-window
-close_tab = "prefix+&"               # tmux & kill-window
+close_tab = "prefix+shift+x"         # herdr default (tmux & shadowed, see header)
 previous_tab = "prefix+p"            # tmux p previous-window
 next_tab = "prefix+n"                # tmux n next-window
-switch_tab = "prefix+1..9"           # tmux 1..9 select-window (herdr has no 0)
+switch_tab = "prefix+1..9"           # tmux 1..9 select-window (native; matches tab-bar numbers)
 move_tab_previous = "alt+shift+left" # no tmux default
 move_tab_next = "alt+shift+right"
 goto = "prefix+f"                    # tmux f find-window
@@ -57,7 +67,7 @@ cycle_pane_next = "prefix+o"         # tmux o select-pane -t :.+
 cycle_pane_previous = "prefix+shift+tab"
 last_pane = "prefix+;"               # tmux ; last-pane
 split_vertical = "prefix+\""         # tmux " split-window
-split_horizontal = "prefix+%"        # tmux % split-window -h
+split_horizontal = "prefix+minus"    # herdr default (tmux % shadowed, see header)
 close_pane = "prefix+x"              # personal tmux: kill-pane without confirm
 zoom = "prefix+z"                    # tmux z resize-pane -Z
 resize_mode = "prefix+r"             # herdr resize mode (tmux r = refresh-client: no equivalent)
@@ -66,7 +76,7 @@ resize_pane_down = "ctrl+shift+alt+j"
 resize_pane_up = "ctrl+shift+alt+k"
 resize_pane_right = "ctrl+shift+alt+l"
 rename_pane = "prefix+shift+p"       # no tmux default
-# edit_scrollback = "prefix+e"         # herdr default
+# edit_scrollback = "prefix+e"       # herdr default (left commented)
 
 # --- herdr-only extras (no tmux analog) ---
 settings = "prefix+shift+s"
@@ -100,23 +110,12 @@ key = "prefix+}"
 type = "shell"
 command = "herdr pane swap --current --direction down"
 
-# tmux ! break-pane (pane → own tab)
+# tmux ! break-pane (pane → own tab); on shift+b because ! (shift+1) is owned
+# by switch_workspace (see header)
 [[keys.command]]
-key = "prefix+!"
+key = "prefix+shift+b"
 type = "shell"
 command = "herdr pane move \"$(herdr pane current | jq -r '.result.pane.pane_id')\" --new-tab"
-
-# tmux ( switch-client -p (previous workspace)
-[[keys.command]]
-key = "prefix+("
-type = "shell"
-command = "herdr workspace focus \"$(herdr workspace list | jq -r '.result.workspaces as $w | ($w|map(.focused)|index(true)) as $i | $w[($i - 1 + ($w|length)) % ($w|length)].workspace_id')\""
-
-# tmux ) switch-client -n (next workspace)
-[[keys.command]]
-key = "prefix+)"
-type = "shell"
-command = "herdr workspace focus \"$(herdr workspace list | jq -r '.result.workspaces as $w | ($w|map(.focused)|index(true)) as $i | $w[($i + 1) % ($w|length)].workspace_id')\""
 
 # --- tmux defaults with NO herdr equivalent (deliberately unbound) ---
 # Space / M-1..5  select-layout, next-layout   (no layout engine)
@@ -133,6 +132,7 @@ command = "herdr workspace focus \"$(herdr workspace list | jq -r '.result.works
 # ~               show-messages
 # D               choose-client
 # C-z             suspend-client
+# ( )             session cycling (redundant with prefix+shift+h/l)
 # L / l           last-session / last-window (no last-tab action; l is pane-right
 #                 in personal tmux, ` is reserved for a literal backtick)
 # [ / PPage       copy-mode (no herdr equivalent; herdr scrolls pane scrollback
@@ -148,5 +148,7 @@ pane_outer_borders = false
 pane_gaps = false
 # tmux: prefix+c creates a window immediately
 prompt_new_tab_name = false
-# tmux & confirms before kill-window; herdr confirms before closing a workspace
+# confirm before closing a workspace (close_workspace is prefix+shift+d)
 confirm_close = true
+# tmux: set-titles-string '#h:#W'
+window_title = "{hostname}: {tab}"
