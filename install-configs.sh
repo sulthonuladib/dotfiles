@@ -16,7 +16,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # tmux-old and wezterm are intentionally omitted; add them here to stow them.
-packages=(nvim fish git ghostty omarchy tmux shell bin)
+packages=(nvim fish git ghostty omarchy tmux shell bin herdr)
 
 case "${1:-}" in
 	"" | -S | --stow) action=() ;;

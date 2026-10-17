@@ -8,13 +8,14 @@ Managed by **GNU stow** (not copies). Repo root is the stow dir; each top-level 
 
 | Package (contents) | Installs to | Method |
 | --- | --- | --- |
-| `<app>/.config/<app>/` | `~/.config/<app>` | stow — `nvim`, `fish`, `git`, `ghostty`, `omarchy`, `tmux` |
+| `<app>/.config/<app>/` | `~/.config/<app>` | stow — `nvim`, `fish`, `git`, `ghostty`, `omarchy`, `tmux`, `herdr` |
 | `shell/` (`.zshrc`, `.zshenv`) | `~` | stow |
 | `bin/.local/bin/` | `~/.local/bin` | stow |
 | `tasks/`, `setup.yml` | — | Ansible |
 | `.ssh/` | `~/.ssh` | Ansible (see secret note) |
 
 - Editing `~/.config/<app>` edits the repo directly (it's a symlink). There is no re-copy step.
+- `herdr` is stowed into the *existing* real `~/.config/herdr/` dir, so only `config.toml` is a symlink. Git tracks only `config.toml` (and `plugins/` if it ever appears); logs, sockets, `session.json`, `session-snapshots/`, `.plugins.lock` are gitignored runtime state. After editing: `herdr config check` then `herdr server reload-config`.
 - Shell is **fish** (`fish/.config/fish/`), not zsh. `shell/.zshrc` is legacy/secondary. `conf.d/*.fish` files auto-load.
 - `tmux-old/` and `wezterm/` exist as packages but are **not** in the default stow list — add them to `packages` in `install-configs.sh` if wanted.
 

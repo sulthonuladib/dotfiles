@@ -42,6 +42,9 @@
           "id": "omarchy.tray"
         },
         {
+          "id": "flux"
+        },
+        {
           "id": "omarchy.agents"
         },
         {
@@ -58,6 +61,15 @@
         },
         {
           "id": "omarchy.power"
+        },
+        {
+          "id": "net-speed",
+          "unit": "MB/s",
+          "type": "qml",
+          "showUnit": true,
+          "iconDown": "↓",
+          "iconUp": "↑",
+          "pollMs": 1000
         }
       ]
     }
