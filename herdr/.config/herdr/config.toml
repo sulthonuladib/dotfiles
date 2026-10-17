@@ -140,9 +140,9 @@ command = "herdr pane move \"$(herdr pane current | jq -r '.result.pane.pane_id'
 
 [ui]
 # tmux theme port: default bg + blue accents
-accent = "blue"
+# accent = "blue"
 # tmux: status-position bottom
-tab_bar_position = "bottom"
+tab_bar_position = "top"
 # tmux-style internal splitters, no outside frame, no gaps
 pane_outer_borders = false
 pane_gaps = false
@@ -151,4 +151,4 @@ prompt_new_tab_name = false
 # confirm before closing a workspace (close_workspace is prefix+shift+d)
 confirm_close = true
 # tmux: set-titles-string '#h:#W'
-window_title = "{hostname}: {tab}"
+# window_title = "{hostname}: {tab}"
