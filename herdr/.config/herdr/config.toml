@@ -23,8 +23,9 @@ onboarding = false
 
 [theme]
 # Follow the host terminal palette (like tmux `status-style bg=default`)
-name = "terminal"
+name = "catppuccin"
 
+auto_switch = false
 [terminal]
 # default_shell unset → uses $SHELL (fish)
 
@@ -33,6 +34,8 @@ name = "terminal"
 # Pressing the prefix twice sends a literal backtick (built-in send-prefix),
 # so tmux's `bind ` last-window` / `bind e send-prefix` need no binding.
 prefix = "backtick"
+# send_prefix = "e"
+
 
 help = "prefix+?"     # tmux ?   list-keys
 detach = "prefix+d"   # tmux d   detach-client
@@ -67,7 +70,7 @@ cycle_pane_next = "prefix+o"         # tmux o select-pane -t :.+
 cycle_pane_previous = "prefix+shift+tab"
 last_pane = "prefix+;"               # tmux ; last-pane
 split_vertical = "prefix+\""         # tmux " split-window
-split_horizontal = "prefix+minus"    # herdr default (tmux % shadowed, see header)
+split_horizontal = "prefix+%"    # herdr default (tmux % shadowed, see header)
 close_pane = "prefix+x"              # personal tmux: kill-pane without confirm
 zoom = "prefix+z"                    # tmux z resize-pane -Z
 resize_mode = "prefix+r"             # herdr resize mode (tmux r = refresh-client: no equivalent)
@@ -144,7 +147,7 @@ command = "herdr pane move \"$(herdr pane current | jq -r '.result.pane.pane_id'
 # tmux: status-position bottom
 tab_bar_position = "top"
 # tmux-style internal splitters, no outside frame, no gaps
-pane_outer_borders = false
+pane_outer_borders = true
 pane_gaps = false
 # tmux: prefix+c creates a window immediately
 prompt_new_tab_name = false
@@ -152,3 +155,4 @@ prompt_new_tab_name = false
 confirm_close = true
 # tmux: set-titles-string '#h:#W'
 # window_title = "{hostname}: {tab}"
+status_indicators = "symbols"

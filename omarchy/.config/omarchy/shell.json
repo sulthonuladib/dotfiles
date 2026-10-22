@@ -34,12 +34,20 @@
           "id": "omarchy.weather"
         },
         {
+          "id": "crmne.hyprmoncfg"
+        },
+        {
           "id": "omarchy.system-update"
         }
       ],
       "right": [
         {
-          "id": "omarchy.tray"
+          "id": "omarchy.tray",
+          "pinned": [
+            "discord_status_icon_1",
+            "steam"
+          ],
+          "hidden": []
         },
         {
           "id": "flux"

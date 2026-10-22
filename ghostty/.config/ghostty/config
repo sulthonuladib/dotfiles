@@ -5,7 +5,7 @@ theme = Catppuccin Mocha
 # Font
 font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
-font-size = 14
+font-size = 11
 
 # linux linux dbus
 quit-after-last-window-closed = true
