@@ -1,14 +1,57 @@
 {
-  "version": 1,
-  "idle": {
-    "screensaver": 150,
-    "lock": 300
-  },
   "bar": {
-    "position": "top",
-    "transparent": true,
-    "centerAnchor": "omarchy.clock",
+    "background": "none",
     "layout": {
+      "center": [
+        {
+          "format": "ddd d MMM h:mm AP",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "id": "omarchy.clock",
+          "verticalFormat": "HH\n—\nmm"
+        }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators"
+        }
+      ],
+      "centerEnd": [
+        {
+          "cities": [
+            {
+              "lat": -7.11667,
+              "lon": 112.41667,
+              "name": "Lamongan",
+              "people": [
+                "@sulthonuladib"
+              ],
+              "region": "East Java, ID",
+              "unit": "Celcius",
+              "zone": "Asia/Jakarta"
+            },
+            {
+              "name": "Jakarta",
+              "zone": "Asia/Jakarta"
+            },
+            {
+              "name": "Singapore",
+              "zone": "Asia/Singapore"
+            },
+            {
+              "name": "Dubai",
+              "zone": "Asia/Dubai"
+            },
+            {
+              "name": "London",
+              "zone": "Europe/London"
+            }
+          ],
+          "id": "omarchy.elsewhen"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
+      ],
       "left": [
         {
           "id": "omarchy.menu"
@@ -17,35 +60,22 @@
           "id": "omarchy.workspaces"
         }
       ],
-      "center": [
-        {
-          "id": "omarchy.indicators"
-        },
-        {
-          "id": "omarchy.clock",
-          "format": "dddd HH:mm",
-          "formatAlt": "d MMMM 'W'ww yyyy",
-          "verticalFormat": "HH\n—\nmm"
-        },
-        {
-          "id": "omarchy.keyboard-layout"
-        },
-        {
-          "id": "omarchy.weather"
-        },
-        {
-          "id": "omarchy.system-update"
-        }
-      ],
       "right": [
         {
-          "id": "omarchy.tray"
+          "hidden": [],
+          "id": "omarchy.tray",
+          "pinned": [
+            "discord_status_icon_1",
+            "steam",
+            "TelegramDesktop",
+            "mygo-1637-1"
+          ]
+        },
+        {
+          "id": "omarchy.tailscale"
         },
         {
           "id": "flux"
-        },
-        {
-          "id": "omarchy.agents"
         },
         {
           "id": "omarchy.bluetooth"
@@ -63,16 +93,38 @@
           "id": "omarchy.power"
         },
         {
-          "id": "net-speed",
-          "unit": "MB/s",
-          "type": "qml",
-          "showUnit": true,
           "iconDown": "↓",
           "iconUp": "↑",
-          "pollMs": 1000
+          "id": "net-speed",
+          "pollMs": 1000,
+          "showUnit": true,
+          "type": "qml",
+          "unit": "MB/s"
+        }
+      ],
+      "tray": [
+        {
+          "id": "superwhisper.panel"
         }
       ]
-    }
+    },
+    "position": "top"
   },
-  "plugins": []
+  "dock": {
+    "autohide": true,
+    "pinned": [
+      "brave-browser",
+      "org.gnome.Nautilus",
+      "omacalc",
+      "omawrite",
+      "X",
+      "YouTube"
+    ]
+  },
+  "idle": {
+    "lock": 300,
+    "screensaver": 150
+  },
+  "plugins": [],
+  "version": 1
 }

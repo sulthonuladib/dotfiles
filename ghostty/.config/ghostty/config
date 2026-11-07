@@ -10,7 +10,6 @@ font-size = 14
 # linux linux dbus
 quit-after-last-window-closed = true
 quit-after-last-window-closed-delay = 5m
-quit-after-last-window-closed = false
 
 background-opacity = 0.95
 
@@ -47,3 +46,12 @@ keybind = super+control+shift+alt+arrow_right=resize_split:right,100
 
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
+
+# D-Bus single instance (bus name com.mitchellh.ghostty).
+# The default, `detect`, disables single-instance mode whenever TERM_PROGRAM is
+# set or any CLI arguments are passed - which is exactly the case for
+# `ghostty -e <cmd>` and `ghostty +new-window ...`. Forcing `true` makes every
+# invocation activate/join the one running instance instead of spawning a second
+# process. Applies the next time ghostty starts fresh (it is an app-level option,
+# so a reload in a running process does not change it).
+# gtk-single-instance = false

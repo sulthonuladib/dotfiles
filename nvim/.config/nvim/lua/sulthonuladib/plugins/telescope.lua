@@ -1,5 +1,21 @@
 local add_keymap = vim.keymap.set
 
+-- ripgrep flags shared by find_files and live_grep.
+--
+-- `rg` respects .gitignore, but that is not enough on its own:
+--   * a repo without a .gitignore (or one that does not list node_modules)
+--     still yields every dependency file, so exclude the noisy dirs by hand;
+--   * outside a git repo `rg` ignores .gitignore files entirely, hence
+--     --no-require-git.
+-- Only *negated* globs are used here: a whitelist glob (e.g. `--glob "*"`)
+-- outranks .gitignore in ripgrep and would re-include every ignored file.
+-- Add more entries ("dist", ".venv", "target", ...) as needed.
+local noisy_dirs = { ".git", "node_modules" }
+local rg_ignore_args = {}
+for _, dir in ipairs(noisy_dirs) do
+	vim.list_extend(rg_ignore_args, { "--glob", "!**/" .. dir .. "/*" })
+end
+
 -- local actions = require("telescope.actions")
 require("telescope").setup({
 	--  All the info you're looking for is in `:help telescope.setup()`
@@ -17,29 +33,12 @@ require("telescope").setup({
 	},
 	pickers = {
 		find_files = {
-			-- `rg` respects .gitignore by default, so --hidden shows dotfiles
-			-- without showing gitignored files (herdr runtime state, secrets,
-			-- fish_variables, ...). Exclude .git/ itself explicitly.
-			-- NOTE: don't re-whitelist files under an excluded dir with --glob;
-			-- gitignore semantics can't re-include under an excluded parent.
-			find_command = {
-				"rg",
-				"--files",
-				"--hidden",
-				"--glob",
-				"*",
-				"--glob",
-				"!**/.git/*",
-			},
+			-- --hidden shows dotfiles; files matched by .gitignore stay hidden
+			-- thanks to rg's ignore handling (see rg_ignore_args above).
+			find_command = vim.list_extend({ "rg", "--files", "--hidden", "--no-require-git" }, rg_ignore_args),
 		},
 		live_grep = {
-			additional_args = {
-				"--hidden",
-				"--glob",
-				"*",
-				"--glob",
-				"!**/.git/*",
-			},
+			additional_args = vim.list_extend({ "--hidden", "--no-require-git" }, rg_ignore_args),
 		},
 	},
 	extensions = {

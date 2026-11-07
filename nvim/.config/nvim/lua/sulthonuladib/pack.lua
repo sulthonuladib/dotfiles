@@ -3,6 +3,7 @@ require("sulthonuladib.plugins.pack-hooks")
 
 ---@type (string | vim.pack.Spec)[]
 local plugins = {
+	"https://github.com/nvim-tree/nvim-web-devicons",
 	-- NvChad UI / base46 theming (completion popup, signature help, floats)
 	"https://github.com/NvChad/ui",
 	"https://github.com/NvChad/base46",
@@ -32,6 +33,8 @@ local plugins = {
 	-- Treesitter
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 
+	"https://github.com/nvim-lualine/lualine.nvim",
+
 	"https://github.com/supermaven-inc/supermaven-nvim",
 }
 
@@ -54,6 +57,9 @@ require("sulthonuladib.plugins.treesitter")
 -- LSP
 require("sulthonuladib.plugins.lsp.mason") -- mason has to load before lspconfig
 require("sulthonuladib.plugins.lsp.lspconfig")
+
+-- UI
+require("sulthonuladib.plugins.lualine")
 
 -- ai
 require("sulthonuladib.plugins.supermaven")
